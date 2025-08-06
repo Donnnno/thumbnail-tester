@@ -40,6 +40,28 @@ const videoTitles = [
     "Exploring Ancient Ruins in South America"
 ];
 
+// Array of channel names
+const channelNames = [
+    "BOOS",
+    "NOS Stories",
+    "3voor12",
+    "NPO Radio 1",
+    "VPRO",
+    "Enzo Knol",
+    "Mr Beast",
+    "NOS Jeugdjournaal",
+    "Nieuwsuur",
+    "Johnny Harris"
+];
+
+// Array of view counts
+function generateViewCount() {
+    const counts = ["K", "M"];
+    const number = Math.floor(Math.random() * 990) + 10; // Random number between 10 and 999
+    const suffix = counts[Math.floor(Math.random() * counts.length)];
+    return `${number}K weergaven`;
+}
+
 // Function to shuffle array randomly
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -55,6 +77,7 @@ function initializeThumbnails() {
     const shuffledImages = shuffleArray([...imageFiles]);
     const shuffledTitles = shuffleArray([...videoTitles]);
     const shuffledAvatars = shuffleArray([...avatarFiles]);
+    const shuffledChannels = shuffleArray([...channelNames]);
     
     thumbnails.forEach((thumbnail, index) => {
         if (index < shuffledImages.length) {
@@ -66,12 +89,19 @@ function initializeThumbnails() {
             if (videoInfo && videoInfo.classList.contains('video-info')) {
                 const avatar = videoInfo.querySelector('.profile-avatar');
                 const title = videoInfo.querySelector('.video-title');
+                const channelInfo = videoInfo.querySelector('h4') || document.createElement('h4');
                 
                 if (avatar) {
                     avatar.src = 'img/placeholder-avatars/' + shuffledAvatars[index];
                 }
                 if (title) {
                     title.textContent = shuffledTitles[index];
+                }
+                
+                // Set channel name and view count
+                channelInfo.innerHTML = `${shuffledChannels[index]}<br>${generateViewCount()}`;
+                if (!channelInfo.parentElement) {
+                    videoInfo.appendChild(channelInfo);
                 }
             }
         }
