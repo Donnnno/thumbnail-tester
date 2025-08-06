@@ -105,6 +105,8 @@ dropZone.addEventListener('drop', (e) => {
             preview.src = e.target.result;
             preview.style.display = 'block';
             userThumb.src = e.target.result;
+            // Enable the Show in Grid button
+            document.getElementById('showGridButton').disabled = false;
             
             // Set a default title for the user's thumbnail
             const userThumbContainer = document.getElementById('userThumbContainer');
@@ -124,9 +126,16 @@ function showInGrid() {
         const userThumbContainer = document.getElementById('userThumbContainer');
         const dropZone = document.getElementById('dropZone');
         const mainContent = document.getElementById('mainContent');
+        const titleInput = document.getElementById('thumbnailTitle');
         
         // Show user thumbnail
         userThumbContainer.style.display = 'block';
+        
+        // Set the title if provided
+        if (titleInput.value.trim()) {
+            const userThumbTitle = userThumbContainer.querySelector('.video-title');
+            userThumbTitle.textContent = titleInput.value.trim();
+        }
         
         // Hide splash screen
         dropZone.style.display = 'none';

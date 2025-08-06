@@ -7,6 +7,31 @@ body {
     padding-right: 18px;
 }
 
+.input-group {
+    margin: 15px 0;
+}
+
+.title-input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.title-input:focus {
+    outline: none;
+    border-color: #0077ff;
+    box-shadow: 0 0 0 2px rgba(0,119,255,0.2);
+}
+
+.button:disabled {
+    background-color: #adadad;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 .drop-zone.fullscreen {
     position: fixed;
     top: 0;
@@ -65,13 +90,14 @@ body {
     padding-bottom: 4px;
     padding-left: 12px;
     padding-right: 12px;
-	border: none;
+    border: none;
 }
 
 .thumbnail-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 18px;
+    row-gap: 36px;
 }
 
 .thumbnail-container {
@@ -132,8 +158,14 @@ body {
     color: #0f0f0f;
 }
 
+@media screen and (max-width: 1200px) {
+    .thumbnail-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media screen and (max-width: 800px) {
     .thumbnail-grid {
-    grid-template-columns: repeat(1, 1fr);
-}
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

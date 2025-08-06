@@ -13,8 +13,12 @@
         <div class="centered-content">
             <p>Drag and drop your thumbnail here</p>
             <img id="preview" class="preview" style="display: none;">
+            <div class="input-group">
+                <input type="text" id="thumbnailTitle" placeholder="Enter thumbnail title (optional)"
+                    class="title-input">
+            </div>
             <div class="controls">
-                <button class="button" onclick="showInGrid()">Show in Grid</button>
+                <button class="button" id="showGridButton" onclick="showInGrid()" disabled>Show in grid</button>
             </div>
         </div>
     </div>
@@ -22,110 +26,123 @@
     <div class="main-content" id="mainContent">
         <h2>Nieuwste</h2>
         <div class="thumbnail-grid">
-        <div>
-            <div class="thumbnail-container">
-                <div class="time">
-                    <p>21:35</p>
+            <div>
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>21:35</p>
+                    </div>
+                    <img class="thumbnail">
                 </div>
-                <img class="thumbnail">
+                <div class="video-info">
+                    <img class="profile-avatar">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-            <div class="video-info">
-                <img class="profile-avatar">
-                <h3 class="video-title"></h3>
-            </div>
-        </div>
 
-        <div>
-            <div class="thumbnail-container">
-                <div class="time">
-                    <p>18:42</p>
+            <div>
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>18:42</p>
+                    </div>
+                    <img class="thumbnail">
                 </div>
-                <img class="thumbnail">
+                <div class="video-info">
+                    <img class="profile-avatar" src="img/nosop3.jpg">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-            <div class="video-info">
-                <img class="profile-avatar" src="img/nosop3.jpg">
-                <h3 class="video-title"></h3>
-            </div>
-        </div>
 
-        <div id="userThumbContainer" style="display: none;">
-            <div class="thumbnail-container">
-                <div class="time">
-                    <p>15:20</p>
+            <div>
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>24:10</p>
+                    </div>
+                    <img class="thumbnail">
                 </div>
-                <img id="userThumb" class="thumbnail">
+                <div class="video-info">
+                    <img class="profile-avatar">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-            <div class="video-info">
-                <img class="profile-avatar">
-                <h3 class="video-title"></h3>
-            </div>
-        </div>
 
-        <div>
-            <div class="thumbnail-container">
-                <div class="time">
-                    <p>24:10</p>
+            <div id="userThumbContainer" style="display: none;">
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>15:20</p>
+                    </div>
+                    <img id="userThumb" class="thumbnail">
                 </div>
-                <img class="thumbnail">
+                <div class="video-info">
+                    <img class="profile-avatar">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-            <div class="video-info">
-                <img class="profile-avatar">
-                <h3 class="video-title"></h3>
-            </div>
-        </div>
 
-        <div>
-            <div class="thumbnail-container">
-                <div class="time">
-                    <p>12:55</p>
+            <div>
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>12:55</p>
+                    </div>
+                    <img class="thumbnail">
                 </div>
-                <img class="thumbnail">
+                <div class="video-info">
+                    <img class="profile-avatar">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-            <div class="video-info">
-                <img class="profile-avatar">
-                <h3 class="video-title"></h3>
-            </div>
-        </div>
 
-        <div>
-            <div class="thumbnail-container">
-                <div class="time">
-                    <p>31:08</p>
+            <div>
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>31:08</p>
+                    </div>
+                    <img class="thumbnail">
                 </div>
-                <img class="thumbnail">
+                <div class="video-info">
+                    <img class="profile-avatar">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-            <div class="video-info">
-                <img class="profile-avatar">
-                <h3 class="video-title"></h3>
-            </div>
-        </div>
 
-        <div>
-            <div class="thumbnail-container">
-                <div class="time">
-                    <p>09:15</p>
+            <div>
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>09:15</p>
+                    </div>
+                    <img class="thumbnail">
                 </div>
-                <img class="thumbnail">
+                <div class="video-info">
+                    <img class="profile-avatar">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-            <div class="video-info">
-                <img class="profile-avatar">
-                <h3 class="video-title"></h3>
-            </div>
-        </div>
 
-        <div>
-            <div class="thumbnail-container">
-                <div class="time">
-                    <p>27:45</p>
+            <div>
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>27:45</p>
+                    </div>
+                    <img class="thumbnail">
                 </div>
-                <img class="thumbnail">
+                <div class="video-info">
+                    <img class="profile-avatar">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-            <div class="video-info">
-                <img class="profile-avatar">
-                <h3 class="video-title"></h3>
+            
+            <div>
+                <div class="thumbnail-container">
+                    <div class="time">
+                        <p>09:45</p>
+                    </div>
+                    <img class="thumbnail">
+                </div>
+                <div class="video-info">
+                    <img class="profile-avatar">
+                    <h3 class="video-title"></h3>
+                </div>
             </div>
-        </div>
-    </div>
+            
     </div>
 </body>
 <script src="script.js"></script>
