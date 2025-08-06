@@ -1,0 +1,140 @@
+// Array of available images
+const imageFiles = [
+    'thumb1.jpg',
+    'thumb2.jpg',
+    'thumb3.jpg',
+    'thumb4.jpg',
+    'thumb5.jpg',
+    'thumb6.jpg',
+    'thumb7.jpg',
+    'thumb8.jpg',
+    'thumb9.jpg'
+];
+
+// Array of avatar images
+const avatarFiles = [
+    'avatar1.jpg',
+    'avatar2.jpg',
+    'avatar3.jpg',
+    'avatar4.jpg',
+    'avatar5.jpg',
+    'avatar6.jpg',
+    'avatar7.jpg',
+    'avatar8.jpg',
+    'avatar9.jpg',
+    'avatar10.jpg',
+    'avatar11.jpg'
+];
+
+// Array of sample video titles
+const videoTitles = [
+    "Epic Mountain Biking Adventure in the Alps",
+    "Behind the Scenes: Making of a Blockbuster",
+    "Master Chef's Secret Recipe Revealed",
+    "Ultimate Gaming Setup Tour 2025",
+    "World's Most Amazing Street Food Journey",
+    "Pro Tips for Better Photography",
+    "Hidden Gems of Southeast Asia",
+    "Tech Review: Latest Gadgets of 2025",
+    "DIY Home Improvement Hacks",
+    "Exploring Ancient Ruins in South America"
+];
+
+// Function to shuffle array randomly
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Initialize thumbnails with random images and titles
+function initializeThumbnails() {
+    const thumbnails = document.querySelectorAll('.thumbnail:not(#userThumb)');
+    const shuffledImages = shuffleArray([...imageFiles]);
+    const shuffledTitles = shuffleArray([...videoTitles]);
+    const shuffledAvatars = shuffleArray([...avatarFiles]);
+    
+    thumbnails.forEach((thumbnail, index) => {
+        if (index < shuffledImages.length) {
+            // Set thumbnail image
+            thumbnail.src = 'img/placeholder-thumbs/' + shuffledImages[index];
+            
+            // Set profile avatar and title
+            const videoInfo = thumbnail.closest('div').nextElementSibling;
+            if (videoInfo && videoInfo.classList.contains('video-info')) {
+                const avatar = videoInfo.querySelector('.profile-avatar');
+                const title = videoInfo.querySelector('.video-title');
+                
+                if (avatar) {
+                    avatar.src = 'img/placeholder-avatars/' + shuffledAvatars[index];
+                }
+                if (title) {
+                    title.textContent = shuffledTitles[index];
+                }
+            }
+        }
+    });
+}
+
+// Call initialization when page loads
+document.addEventListener('DOMContentLoaded', initializeThumbnails);
+
+const dropZone = document.getElementById('dropZone');
+const preview = document.getElementById('preview');
+const userThumb = document.getElementById('userThumb');
+
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+});
+
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+});
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            userThumb.src = e.target.result;
+            
+            // Set a default title for the user's thumbnail
+            const userThumbContainer = document.getElementById('userThumbContainer');
+            const userTitle = userThumbContainer.querySelector('.video-title');
+            userTitle.textContent = 'My Video';
+            
+            // Set nosop3.jpg as the profile avatar
+            const userAvatar = userThumbContainer.querySelector('.profile-avatar');
+            userAvatar.src = 'img/nosop3.jpg';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+function showInGrid() {
+    if (preview.src) {
+        const userThumbContainer = document.getElementById('userThumbContainer');
+        const dropZone = document.getElementById('dropZone');
+        const mainContent = document.getElementById('mainContent');
+        
+        // Show user thumbnail
+        userThumbContainer.style.display = 'block';
+        
+        // Hide splash screen
+        dropZone.style.display = 'none';
+        
+        // Show main content
+        mainContent.classList.add('visible');
+        
+        // Scroll to grid content
+        mainContent.scrollIntoView({ behavior: 'smooth' });
+    }
+}
