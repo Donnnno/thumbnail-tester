@@ -12,6 +12,11 @@
     <div class="drop-zone fullscreen" id="dropZone">
         <div class="centered-content">
             <p>Drag and drop your thumbnail here</p>
+            <div class="upload-options">
+                <p>or</p>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                <button class="button secondary" onclick="document.getElementById('fileInput').click()">Choose File</button>
+            </div>
             <img id="preview" class="preview" style="display: none;">
             <div class="input-group">
                 <input type="text" id="thumbnailTitle" placeholder="Enter thumbnail title (optional)"

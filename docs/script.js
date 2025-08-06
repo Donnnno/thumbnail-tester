@@ -94,11 +94,8 @@ dropZone.addEventListener('dragleave', () => {
     dropZone.classList.remove('dragover');
 });
 
-dropZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
-
-    const file = e.dataTransfer.files[0];
+// Function to handle file selection
+function handleFileSelect(file) {
     if (file && file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -107,7 +104,7 @@ dropZone.addEventListener('drop', (e) => {
             userThumb.src = e.target.result;
             // Enable the Show in Grid button
             document.getElementById('showGridButton').disabled = false;
-            
+
             // Set a default title for the user's thumbnail
             const userThumbContainer = document.getElementById('userThumbContainer');
             const userTitle = userThumbContainer.querySelector('.video-title');
@@ -119,6 +116,20 @@ dropZone.addEventListener('drop', (e) => {
         };
         reader.readAsDataURL(file);
     }
+}
+
+// Handle file input change
+document.getElementById('fileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    handleFileSelect(file);
+});
+
+// Handle file drop
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    handleFileSelect(file);
 });
 
 function showInGrid() {
