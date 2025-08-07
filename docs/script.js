@@ -156,11 +156,11 @@ function handleFileSelect(file) {
             // Set a default title for the user's thumbnail
             const userThumbContainer = document.getElementById('userThumbContainer');
             const userTitle = userThumbContainer.querySelector('.video-title');
-            userTitle.textContent = 'My Video';
+            userTitle.textContent = 'My Video title';
             
-            // Set nosop3.jpg as the profile avatar
+            // Set avatar.jpg as the profile avatar
             const userAvatar = userThumbContainer.querySelector('.profile-avatar');
-            userAvatar.src = 'img/nosop3.jpg';
+            userAvatar.src = 'img/avatar.jpg';
         };
         reader.readAsDataURL(file);
     }
