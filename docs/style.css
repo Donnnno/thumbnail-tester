@@ -232,7 +232,7 @@ body {
 .toggle {
   position: relative;
   display: inline-block;
-  background: url(../img/dm.svg) no-repeat center;
+  background: url(img/dm.svg) no-repeat center;
   width: 20px;
   height: 20px;
   cursor: pointer;
@@ -241,12 +241,12 @@ body {
 }
 
 body.dark .toggle {
-  background: url(../img/lm.svg) no-repeat center;
+  background: url(img/lm.svg) no-repeat center;
   filter: invert(1);
 }
 
 body.light .toggle {
-  background: url(../img/dm.svg) no-repeat center;
+  background: url(img/dm.svg) no-repeat center;
 }
 
 
