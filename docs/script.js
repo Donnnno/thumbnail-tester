@@ -1,129 +1,74 @@
-// Array of available images
-const imageFiles = [
-    'thumb1.jpg',
-    'thumb2.jpg',
-    'thumb3.jpg',
-    'thumb4.jpg',
-    'thumb5.jpg',
-    'thumb6.jpg',
-    'thumb7.jpg',
-    'thumb8.jpg',
-    'thumb9.jpg',
-    'thumb10.jpg',
-    'thumb11.jpg',
-    'thumb12.jpg',
-    'thumb13.jpg',
-    'thumb14.jpg',
-    'thumb15.jpg',
-    'thumb16.jpg',
-    'thumb17.jpg'
+// Fallback arrays in case YAML loading fails
+const defaultVideoTitles = [
+    "Video title"
 ];
 
-// Array of avatar images
-const avatarFiles = [
-    'avatar1.jpg',
-    'avatar2.jpg',
-    'avatar3.jpg',
-    'avatar4.jpg',
-    'avatar5.jpg',
-    'avatar6.jpg',
-    'avatar7.jpg',
-    'avatar8.jpg',
-    'avatar9.jpg',
-    'avatar10.jpg',
-    'avatar11.jpg',
-    'avatar12.jpg',
-    'avatar13.jpg',
-    'avatar14.jpg',
-    'avatar15.jpg',
-    'avatar16.jpg',
-    'avatar17.jpg',
-    'avatar18.jpg',
+const defaultChannelNames = [
+ "Channel"
 ];
 
-// Array of sample video titles
-const videoTitles = [
-    "Epic Mountain Biking Adventure in the Alps",
-    "Behind the Scenes: Making of a Blockbuster",
-    "Master Chef's Secret Recipe Revealed",
-    "Ultimate Gaming Setup Tour 2025",
-    "World's Most Amazing Street Food Journey",
-    "Pro Tips for Better Photography",
-    "Hidden Gems of Southeast Asia",
-    "Tech Review: Latest Gadgets of 2025",
-    "DIY Home Improvement Hacks",
-    "Exploring Ancient Ruins in South America",
-    "De Mysterieuze Wereld van Onderwatergrotten",
-    "10 Minuten Yoga om Stress te Verminderen",
-    "De Snelste Manieren om Je Huis Te Organiseren",
-    "Reisverslag: Mijn Avontuur in de Amazone Regenwoud",
-    "De Kunst van het Maken van Handgemaakte Sieraden",
-    "De Top 5 Fouten die Beginners Maken in de Keuken",
-    "Fitness voor Beginners: Een Volledige Gids",
-    "De Magie van Nachtfotografie: Tips en Trucs",
-    "Hoe Je Je Eigen Tuin Moestuin Kunt Maken",
-    "De Geheimen van Succesvolle Fotobewerking",
-    "Hoe Blockchain Technologie Exact Werkt",
-    "De Basisprincipes van Kwantumfysica Uitgelegd",
-    "Inleiding tot Machine Learning: Een Beginnersgids",
-    "De Werking van het Menselijk Brein: Een Uitleg",
-    "Cryptografie: Hoe Je Gegevens Beveiligd Kunnen Worden",
-    "De Geschiedenis van de Kunstmatige Intelligentie",
-    "Hoe Je Een Website Kunt Bouwen met HTML en CSS",
-    "De Theorie van de Relativiteit: Een Eenvoudige Uitleg",
-    "Inzicht in de Werking van Neurale Netwerken",
-    "De Toekomst van Energie: Een Uitleg over Duurzame Energiebronnen",
-    "De Geopolitieke Impact van de Oorlog in Oekraïne",
-    "De Rol van China in de Wereldpolitiek: Een Analyse",
-    "De Toekomst van de Europese Unie: Uitdagingen en Kansen",
-    "De Betekenis van de BRICS-landen voor de Wereldorde",
-    "De Geopolitieke Dimensie van de Israëlisch-Palestijnse Conflict",
-    "De Relatie tussen Rusland en de NAVO: Een Spanningsveld",
-    "De Gevolgen van de Handelsoorlog tussen de VS en China",
-    "De Rol van India in de Geopolitiek van Zuid-Azië",
-    "De Impact van Klimaatverandering op de Wereldpolitiek",
-    "De Toekomst van de Internationale Betrekkingen: Trends en Voorspellingen"
-];
+// Initialize arrays
+let imageFiles = Array.from({length: 9}, (_, i) => `thumb${i + 1}.jpg`);
+let avatarFiles = Array.from({length: 9}, (_, i) => `avatar${i + 1}.jpg`);
+let videoTitles = [...defaultVideoTitles];
+let channelNames = [...defaultChannelNames];
 
-// Array of channel names
-const channelNames = [
-    "BOOS",
-    "NOS Stories",
-    "3voor12",
-    "NPO Radio 1",
-    "VPRO",
-    "Enzo Knol",
-    "Mr Beast",
-    "NOS Jeugdjournaal",
-    "Nieuwsuur",
-    "Johnny Harris",
-    "Corridor Crew",
-    "Awnsers in Progress",
-    "MKBHD",
-    "Nintendo",
-    "Howtown",
-    "Lubach",
-    "PewDiePie",
-    "Markiplier",
-    "Tyler1",
-    "Shane Dawson",
-    "Jeffrey Dahmer",
-    "KSI",
-    "Pokimane",
-    "Ninja",
-    "Dr. Disrespect",
-    "TimTheTatman",
-    "Jacksepticeye",
-    "VanossGaming",
-    "GameGrumps",
-    "The King of Random",
-    "Unbox Therapy",
-    "Vsauce",
-    "CGP Grey",
-    "Crash Course",
-    "AsapSCIENCE",
-    "Kurzgesagt - In a Nutshell"
-];
+// Function to fetch and parse YAML
+async function fetchYAML(path) {
+    try {
+        const response = await fetch(path);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const text = await response.text();
+        
+        // Split the text into lines and process each line
+        const lines = text.split('\n');
+        const items = lines
+            .map(line => {
+                // Match either "- item" or "  - item" format
+                const match = line.match(/^\s*-\s*["']?([^"'\n]+)["']?\s*$/);
+                return match ? match[1].trim() : null;
+            })
+            .filter(item => item !== null); // Remove any non-matches
+
+        return items.length > 0 ? items : null;
+    } catch (error) {
+        console.warn('Error fetching YAML:', error);
+        return null;
+    }
+}
+
+// Load YAML data when the script starts
+(async function loadData() {
+    try {
+        console.log('Loading YAML files...');
+        const [titles, channels] = await Promise.all([
+            fetchYAML('data/titles.yml'),
+            fetchYAML('data/channels.yml')
+        ]);
+
+        // Only update if YAML files were successfully loaded
+        if (titles) {
+            console.log('Loaded', titles.length, 'titles');
+            videoTitles = titles;
+        } else {
+            console.warn('Failed to load titles.yml, using defaults');
+        }
+        
+        if (channels) {
+            console.log('Loaded', channels.length, 'channels');
+            channelNames = channels;
+        } else {
+            console.warn('Failed to load channels.yml, using defaults');
+        }
+
+        // Reinitialize thumbnails with new data
+        if (titles || channels) {
+            initializeThumbnails();
+        }
+    } catch (error) {
+        console.warn('Error loading YAML files:', error);
+    }
+})();
 
 // Array of view counts
 function generateViewCount() {
@@ -180,7 +125,9 @@ function initializeThumbnails() {
 }
 
 // Call initialization when page loads
-document.addEventListener('DOMContentLoaded', initializeThumbnails);
+document.addEventListener('DOMContentLoaded', () => {
+    initializeThumbnails();
+});
 
 const dropZone = document.getElementById('dropZone');
 const preview = document.getElementById('preview');
