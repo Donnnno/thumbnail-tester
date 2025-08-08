@@ -8,8 +8,8 @@ const defaultChannelNames = [
 ];
 
 // Initialize arrays
-let imageFiles = Array.from({length: 9}, (_, i) => `thumb${i + 1}.jpg`);
-let avatarFiles = Array.from({length: 9}, (_, i) => `avatar${i + 1}.jpg`);
+let imageFiles = Array.from({length: 30}, (_, i) => `thumb${i + 1}.jpg`);
+let avatarFiles = Array.from({length: 18}, (_, i) => `avatar${i + 1}.jpg`);
 let videoTitles = [...defaultVideoTitles];
 let channelNames = [...defaultChannelNames];
 
